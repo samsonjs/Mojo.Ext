@@ -3,6 +3,7 @@
 require 'rubygems'
 require 'json'
 require 'fileutils'
+require 'stringio'
 
 def inject
   FileUtils.cp_r(mojo_ext_path, target_mojo_ext_path)
@@ -27,9 +28,15 @@ def sources_file
 end
 
 def save_sources!
+  # capture pretty-print output to string
+  pretty_json = StringIO.new
+  orig_stdout = $stdout
+  $stdout = pretty_json
+  jj sources
+  $stdout = orig_stdout
+  pretty_json.rewind()
   FileUtils.mv(sources_file, File.join(project_path, 'sources.json-backup'))
-  File.open(sources_file, 'w') {|f| f.puts(sources.to_json)}
-  `./prettyprint.py "#{sources_file}" "#{sources_file}"`
+  File.open(sources_file, 'w') {|f| f.puts(pretty_json.read)}
 end
 
 def project_path
