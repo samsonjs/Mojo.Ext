@@ -90,20 +90,3 @@ Mojo.Ext.SceneAssistantBase = Class.create({
 	return this[name];
     }
 });
-
-//
-    this.listModel = {listTitle:'Topic News', items:this.stories};
-    
-    var listAttributes = {
-	itemTemplate: 'feed/listitem',
-	emptyTemplate: 'feed/emptylist',
-	dividerFunction: this.getDivider.bind(this),
-	dividerTemplate: 'feed/divider'
-    };
-    
-    // Set up the attributes & model for the List widget:
-    this.controller.setupWidget('storyList', listAttributes, this.listModel);
-    this.storyList = this.controller.get('storyList');
-    
-    this.listClickHandler = this.listClickHandler.bind(this);
-    Mojo.Event.listen(this.storyList, Mojo.Event.listTap, this.listClickHandler);
