@@ -12,54 +12,54 @@ Mojo.Log.pp = function(x, indent, key) {
     switch (typeOf(x)) {
     case 'object':
 	if (key) {
-	    print(space + key + ': {');	    
+	    Mojo.Log.info(space + key + ': {');	    
 	}
 	else {
-	    print(space + '{');
+	    Mojo.Log.info(space + '{');
 	}
 	for (var a in x) {
 	    Mojo.Log.pp(x[a], 1+indent, a);
 	}
-	print(space + "},");
+	Mojo.Log.info(space + "},");
 	break;
 
     case 'string':
 	if (key) {
-	    print(space + key + ': "' + x + '",');	    
+	    Mojo.Log.info(space + key + ': "' + x + '",');	    
 	}
 	else {
-	    print(space + '"' + x + '",');
+	    Mojo.Log.info(space + '"' + x + '",');
 	}
 	break;
 
     case 'array':
 	if (key) {
-	    print(space + key + ': [');
+	    Mojo.Log.info(space + key + ': [');
 	}
 	else {
-	    print(space + '[');
+	    Mojo.Log.info(space + '[');
 	}
 	for (var i = 0; i < x.length; ++i) {
 	    Mojo.Log.pp(x[i], 1+indent);
 	}
-	print(space + '],');
+	Mojo.Log.info(space + '],');
 	break;
 
     case 'null':
 	if (key) {
-	    print(space + key + ': (null),');
+	    Mojo.Log.info(space + key + ': (null),');
 	}
 	else {
-	    print(space + '(null),');
+	    Mojo.Log.info(space + '(null),');
 	}
 	break;
 
     default:
 	if (key) {
-	    print(space + key + ": " + x + ',');
+	    Mojo.Log.info(space + key + ": " + x + ',');
 	}
 	else {
-	    print(space + x + ',');
+	    Mojo.Log.info(space + x + ',');
 	}
 	break;
     }

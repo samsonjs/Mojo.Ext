@@ -1,12 +1,21 @@
 Mojo.Ext.SceneAssistantBase = Class.create({
     setup: function() {
-	var sc = this.controller.stageController;
+	var sa = this.controller.stageController.assistant;
 	if (this.appMenuModel !== undefined) {	    
+//	    Mojo.log('scene has appMenuModel, setting up menu with items: ', this.appMenuModel.items);
 	    this.controller.setupWidget(Mojo.Menu.appMenu, {omitDefaultItems:true}, this.appMenuModel);
 	}
-	else if (sc.appMenuModel !== undefined) {	    
-	    this.controller.setupWidget(Mojo.Menu.appMenu, {omitDefaultItems:true}, sc.appMenuModel);
+	else if (sa.appMenuModel !== undefined) {	    
+//	    Mojo.log('stage assistant has appMenuModel, setting up menu with items: ', sa.appMenuModel.items);
+	    this.controller.setupWidget(Mojo.Menu.appMenu, {omitDefaultItems:true}, sa.appMenuModel);
 	}
+	else {
+	    Mojo.log('no appMenuModel');
+	}
+    },
+
+    cleanup: function() {
+	this.stopListeners();
     },
 
     setupListener: function(name, event, callback) {
