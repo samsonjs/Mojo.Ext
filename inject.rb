@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
+require 'pathname'
 require 'rubygems'
 require 'json'
 require 'fileutils'
@@ -64,7 +65,8 @@ def main
 end
 
 def mojo_ext_path
-  File.expand_path(File.join('..', 'src'), __FILE__)
+  this_file = __FILE__
+  path = File.expand_path(File.join('..', 'src'), Pathname.new(this_file).realpath)
 end
 
 def target_mojo_ext_path
