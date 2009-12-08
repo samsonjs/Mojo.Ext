@@ -8,7 +8,7 @@ require 'stringio'
 def inject
   FileUtils.cp_r(mojo_ext_path, target_mojo_ext_path)
 
-  mojo_ext_source_dict = {'source' => 'mojo-ext/ext.js'}
+  mojo_ext_source_dict = {'source' => File.join('mojo-ext', 'ext.js')}
   unless sources.first == mojo_ext_source_dict
     sources.unshift(mojo_ext_source_dict)
     save_sources!
@@ -43,12 +43,19 @@ def project_path
   ARGV.first || Dir.pwd
 end
 
+def usage
+  puts "Usage: #{File.basename(__FILE__)} <path-to-mojo-project>"
+end
+
 def main
   unless File.exists?(sources_file)
-    raise "no Mojo project found at #{project_path}"
+    puts "[error] No Mojo project found at #{project_path}"
+    usage
+    exit(1)
   end
   
   if extended?
+    # TODO ask if the user wants to update/replace Mojo.Ext instead
     puts "project already contains Mojo.Ext, bailing"
   else
     inject
